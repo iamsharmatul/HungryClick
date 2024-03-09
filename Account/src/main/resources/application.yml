@@ -1,1 +1,67 @@
+# Application Information
+info:
+  application:
+    name: '@project.name@'
+    description: "Account microservice is a Spring Boot application"
+    version: '@project.version@'
+    spring-boot-version: '@project.parent.version@'
 
+# Server Configuration
+server:
+  port: 8081
+
+# Spring Application Configuration
+spring:
+
+  # Database migration with Flyway
+  flyway:
+    enabled: true  # Enable Flyway for database migrations
+    locations: classpath:db/migration  # Specify the location of your migration scripts
+    schemas: hc_account
+    baseline-on-migrate: true
+
+  # DataSource Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=hc_account  # Replace with your PostgreSQL database URL
+    username: docker
+    password: password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10  # Set the maximum number of connections in the pool
+      connection-test-query: SELECT 1
+
+  # JPA (Java Persistence API) Configuration
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+# Actuator Endpoints and Prometheus Configuration
+management:
+  info:
+    build:
+      enabled: true
+    env:
+      enabled: true
+    java:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics  # Expose all endpoints, adjust as needed
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+# Springdoc (Swagger/OpenAPI) Configuration
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+  api-docs:
+    path: /api-docs

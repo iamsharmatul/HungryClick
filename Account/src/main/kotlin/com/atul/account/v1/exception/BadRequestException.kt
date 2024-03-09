@@ -1,4 +1,3 @@
 package com.atul.account.v1.exception
 
-class UserNotFoundException(msg: String) : RuntimeException(msg) {
-}
+class BadRequestException(message: String) : RuntimeException(message)

@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class HungryClickApplication
 
 fun main(args: Array<String>) {
-	runApplication<HungryClickApplication>(*args)
+    runApplication<HungryClickApplication>(*args)
 }

@@ -1,4 +1,4 @@
-package com.example.demo.internal.exception.error
+package com.atul.account.v1.exception.error
 
 object ErrorCodeConstants {
     // Authentication and Authorization Errors
@@ -10,6 +10,7 @@ object ErrorCodeConstants {
     const val MISSING_REQUIRED_FIELD = "V001"
     const val INVALID_FORMAT = "V002"
     const val VALUE_OUT_OF_RANGE = "V003"
+    const val BAD_REQUEST = "V004"
 
     // Resource Management Errors
     const val RESOURCE_NOT_FOUND = "R001"
