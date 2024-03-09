@@ -19,8 +19,8 @@ object UserMapper {
             id = userEntity.id,
             firstName = userEntity.firstName,
             lastName = userEntity.lastName,
-            gender = userEntity.gender,
             email = userEntity.email,
+            gender = userEntity.gender,
             phone = userEntity.phone,
         )
     }

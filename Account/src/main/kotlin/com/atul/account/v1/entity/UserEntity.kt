@@ -30,6 +30,14 @@ class UserEntity(
     var gender: Gender,
     @Column(name = "phone", nullable = false)
     var phone: String,
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE], fetch = FetchType.LAZY)
+    @JoinTable(
+        schema = ACCOUNT_SCHEMA,
+        name = "user_delivery_address",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "delivery_address_id")],
+    )
+    var addresses: MutableSet<DeliveryAddressEntity> = mutableSetOf(),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -60,5 +68,13 @@ class UserEntity(
     override fun toString(): String {
         return "UserEntity(id=$id, firstName='$firstName', lastName='$lastName', email='$email', " +
             "gender='$gender', phone='$phone')"
+    }
+
+    fun addAddress(address: DeliveryAddressEntity) {
+        this.addresses.add(address)
+    }
+
+    fun removeAddress(address: DeliveryAddressEntity) {
+        this.addresses.remove(address)
     }
 }
