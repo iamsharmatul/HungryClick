@@ -14,41 +14,38 @@ import org.springframework.web.util.UriComponentsBuilder
 @Tag(name = "User API", description = "Operations for managing users")
 @RequestMapping("/v1/users") // Common base path for UserApi
 interface UserApi {
-
     @Operation(summary = "Get a user by its id")
     @GetMapping(path = ["/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getUserById(
-            @Parameter(description = "The Unique Id of the user", example = "1")
-            @PathVariable(name = "id", value = "id", required = true)
-            id: Long
+        @Parameter(description = "The Unique Id of the user", example = "1")
+        @PathVariable(name = "id", value = "id", required = true)
+        id: Long,
     ): ResponseEntity<UserDto>
 
     @Operation(summary = "Create a new user")
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun createUser(
-            @Valid
-            @RequestBody
-            user: UserDto,
-            uriComponentsBuilder: UriComponentsBuilder
+        @RequestBody
+        user: UserDto,
+        uriComponentsBuilder: UriComponentsBuilder,
     ): ResponseEntity<UserDto>
 
     @Operation(summary = "Update a user by Id")
     @PutMapping(path = ["/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun updateUser(
-            @Parameter(description = "The Unique Id of the user", example = "1")
-            @PathVariable(name = "id", value = "id", required = true)
-            id: Long,
-
-            @Valid
-            @RequestBody(required = true)
-            user: UserDto
+        @Parameter(description = "The Unique Id of the user", example = "1")
+        @PathVariable(name = "id", value = "id", required = true)
+        id: Long,
+        @Valid
+        @RequestBody(required = true)
+        user: UserDto,
     ): ResponseEntity<UserDto>
 
     @Operation(summary = "Delete a user by Id")
     @DeleteMapping(path = ["/{id}"])
     fun deleteUser(
-            @Parameter(description = "The Unique Id of the user", example = "1")
-            @PathVariable(name = "id", value = "id", required = true)
-            id: Long
+        @Parameter(description = "The Unique Id of the user", example = "1")
+        @PathVariable(name = "id", value = "id", required = true)
+        id: Long,
     ): ResponseEntity<Void>
 }

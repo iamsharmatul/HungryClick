@@ -8,31 +8,28 @@ private const val USER_SEQUENCE_NAME = "user_seq"
 
 @Entity
 @Table(schema = ACCOUNT_SCHEMA, name = USER_TABLE_NAME)
-data class UserEntity(
-        @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence_generator")
-        @SequenceGenerator(name = "user_sequence_generator",
-                schema = ACCOUNT_SCHEMA,
-                sequenceName = USER_SEQUENCE_NAME,
-                allocationSize = 1
-        )
-        @Column(name = "id", nullable = false)
-        val id: Long? = null,
-
-        @Column(name = "first_name", nullable = false)
-        var firstName: String,
-
-        @Column(name = "last_name", nullable = false)
-        var lastName: String,
-
-        @Column(name = "email", nullable = false)
-        var email: String,
-
-        @Column(name = "gender", nullable = false)
-        var gender: String,
-
-        @Column(name = "phone", nullable = false)
-        var phone: String,
+class UserEntity(
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence_generator")
+    @SequenceGenerator(
+        name = "user_sequence_generator",
+        schema = ACCOUNT_SCHEMA,
+        sequenceName = USER_SEQUENCE_NAME,
+        allocationSize = 1,
+    )
+    @Column(name = "id", nullable = false)
+    var id: Long? = null,
+    @Column(name = "first_name", nullable = false)
+    var firstName: String,
+    @Column(name = "last_name", nullable = false)
+    var lastName: String,
+    @Column(name = "email", nullable = false)
+    var email: String,
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
+    var gender: Gender,
+    @Column(name = "phone", nullable = false)
+    var phone: String,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -62,6 +59,6 @@ data class UserEntity(
 
     override fun toString(): String {
         return "UserEntity(id=$id, firstName='$firstName', lastName='$lastName', email='$email', " +
-                "gender='$gender', phone='$phone')"
+            "gender='$gender', phone='$phone')"
     }
 }
